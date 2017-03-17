@@ -1,0 +1,15 @@
+   - domain_uuid: 9412a720-dc9f-11e6-9909-05c2baf48116
+     access_token: "UnoEakv8f93pDHNhcZccF63w5c6Fk4t3"
+     files:
+       - document_id: "1"
+         format: "application/pdf"
+         description: "CoderBot - Guida per l'assemblaggio"
+         tags:
+           - "guida"
+           - "assemblaggio"
+         i18n:
+           - language: "it"
+             url: "http://www.coderbot.org/"
+             description: "CoderBot - Guida per il montaggio"
+             created_at: 2017-03-17 12:00:00
+             updated_at: 2017-03-17 12:00:00
