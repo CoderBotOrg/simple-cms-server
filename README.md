@@ -1,15 +1,18 @@
-# Introduction
+# Simple-Cms-Server
+
+[![Build Status](https://travis-ci.org/thingleme/simple-cms-server.svg?branch=master)](https://travis-ci.org/thingleme/simple-cms-server)
+
+## Introduction
 This server allows to run a minimal CMS that is compatible with the [Thingle.me](https://thingle.me)'s `Generic CMS plugin` API specifications.
 
 Documents must accordingly be listed in the `config.yml` configuration file.
 
-# Configuration
+## Configuration
 Create a configuration file listing all the documents you want to use with [Thingle.me](https://thingle.me)
 
 Example of `config.yml`
 ```
    - domain_uuid: PUT_YOUR_DOMAIN_UUID_HERE
-     access_token: "PUT_YOUR_SECRET_PASSWORD_HERE"
      files:
        - document_id: "1"
          format: "application/pdf"
@@ -27,21 +30,27 @@ Example of `config.yml`
 ```
 
 ## Notes:
-1. the `domain_uuid` can be discovered calling the `/users/me` API (see the `Developer Zone` in your Dashboard)
-2. Be sure to put the same `access_token` used in the Thingle.me Generic CMS plugin configuration
+- the `domain_uuid` can be discovered calling the `/users/me` API (see the `Developer Zone` in your Dashboard)
 
-# Run
+# Security
+In order to provide a secure way to filter out unauthorized incoming requests, you need to set an env variable to your `access_token` (the same used in the Thingle.me Generic CMS plugin configuration).
 
-You can start the server by either running node locally or launching a docker container. If not otherwise provided, the default port is 5000.
+- The `name` of this variable must be equal to the first 8 characters of your `domain_uuid`
+- Its `value` must match the `access_token`
 
-## Node.js
+Example:
+your domain_uuid is `a2d4c8a0-d994-11e6-9c32-e3ed0fb5736e` and you have configured `mysecretpwd` as secret access_token in your Thingle.me plugin configuration. To start your `simple-cms-server`, just run:
 
-> npm start
+> $ a2d4c8a0=mysecretpwd npm start
 
-## Docker
+## Run
 
-> docker run -p 5000:5000 -v path_to_the_config.yml:/app/config.yml --name simple-cms-server thingleme/simple-cms-server:v1.0.0
+You can start the server by either locally running node or launching a docker container. If not otherwise provided, the default port is 5000.
 
-If you want to specify a different port, you can use the `e` switch and provide the `PORT` paramenter.
+### Node.js
 
-> docker run -e PORT=5001 -p 5001:5001 -v path_to_the_config.yml:/app/config.yml --name simple-cms-server thingleme/simple-cms-server:v1.0.0
+> $ <first_8_digits_of_your_domain_uuid>=<your_access_token> npm start
+
+### Docker
+
+> $ docker run -e PORT=5001 -e <first_8_digits_of_your_domain_uuid>=<your_access_token> -p 5001:5001 -v path_to_the_config.yml:/app/config.yml --name simple-cms-server thingleme/simple-cms-server:v1.1.0
